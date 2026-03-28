@@ -28,6 +28,9 @@ public class userDao {
                 return false;
             }
         }
-
+    }
+    public User LoginUser(String email, String Password)
+            throws SQLException{
+        String sqlQuery = "SELECT * FROM user WHERE email = ? AND password = ?";
     }
 }
