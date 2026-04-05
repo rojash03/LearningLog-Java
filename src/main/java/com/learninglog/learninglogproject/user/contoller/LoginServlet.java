@@ -39,6 +39,9 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect("dashboard");
             }
         } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("pages/login.jsp").forward(req, resp);
+
 
         }
     }

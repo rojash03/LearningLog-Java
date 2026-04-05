@@ -12,6 +12,6 @@ public class DashboardServlet extends HttpServlet {
             throws jakarta.servlet.ServletException, java.io.IOException {
         // For now, just forward to a JSP page that will display the dashboard
         req.getRequestDispatcher("/pages/dashboard.jsp").forward(req, resp);
-    }
 
+}
 }
