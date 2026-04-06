@@ -1,6 +1,6 @@
 package com.learninglog.learninglogproject.topic.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class topic {
     private int id;
