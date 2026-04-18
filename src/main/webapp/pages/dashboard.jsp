@@ -178,6 +178,7 @@
 
             <div class="actions">
                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/topic">Add topic</a>
+                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/topic?page=list">View topic list</a>
                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/dashboard">Refresh vibe</a>
                 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/login">Switch account</a>
             </div>
@@ -189,7 +190,6 @@
                 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/register">Create account</a>
             </div>
         <% } %>
-        <a href="topic"> Add Topic</a>
     </section>
 </main>
 </body>

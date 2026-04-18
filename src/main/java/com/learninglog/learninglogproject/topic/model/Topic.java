@@ -2,18 +2,19 @@ package com.learninglog.learninglogproject.topic.model;
 
 import java.sql.Timestamp;
 
-public class topic {
+public class Topic {
     private int id;
+    private String topic;
+    private int userid;
+    private Timestamp created_at;
 
-    public topic(int id, String topic, int userid, Timestamp created_at) {
+    public Topic(int id, String topic, int userid, Timestamp created_at) {
         this.id = id;
         this.topic = topic;
         this.userid = userid;
         this.created_at = created_at;
     }
 
-    private String topic;
-    private int userid;
 
     public int getId() {
         return id;
@@ -47,5 +48,4 @@ public class topic {
         this.created_at = created_at;
     }
 
-    private Timestamp created_at;
 }

@@ -194,6 +194,7 @@
 
             <div class="actions">
                 <button type="submit">Add Topic</button>
+                <a class="link" href="topic?page=list">View Added Topics</a>
                 <a class="link" href="dashboard">Back to Dashboard</a>
             </div>
         </form>

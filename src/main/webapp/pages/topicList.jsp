@@ -3,10 +3,18 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>My Topics - Learning Log</title>
 </head>
 <body>
-Topic List
+<h2>My Added Topics</h2>
+<p>
+    <a href="topic">Add New Topic</a> |
+    <a href="dashboard">Back to Dashboard</a>
+</p>
+<c:if test="${not empty error}">
+    <p style="color: #b00020;">${error}</p>
+</c:if>
+
 <table border="1">
     <tr>
         <th>Id</th>
@@ -16,18 +24,20 @@ Topic List
         <th>Action</th>
     </tr>
     <tbody>
+    <c:if test="${empty topics}">
+        <tr>
+            <td colspan="5">No topics added yet.</td>
+        </tr>
+    </c:if>
     <c:forEach var="t" items="${topics}">
         <tr>
-
-
-
              <td>${t.id}</td>
             <td>${t.topic}</td>
             <td>${t.userid}</td>
             <td>${t.created_at}</td>
             <td>
-                <a href="topic?action=edit&id=${t.id}">Edit</a> |
-                <a href="topic?action=delete&id=${t.id}">Delete</a>
+                <a href="topic?page=edit&id=${t.id}">Edit</a> |
+                <a href="topic?page=delete&id=${t.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
