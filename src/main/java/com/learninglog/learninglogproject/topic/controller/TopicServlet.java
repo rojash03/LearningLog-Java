@@ -1,22 +1,31 @@
 package com.learninglog.learninglogproject.topic.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
 
-import com.learninglog.learninglogproject.topic.model.dao.TopicDao;
 import com.learninglog.learninglogproject.topic.model.Topic;
+import com.learninglog.learninglogproject.topic.model.dao.TopicDao;
 import com.learninglog.learninglogproject.user.model.User;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.List;
-
 @WebServlet("/topic")
 public class TopicServlet extends HttpServlet {
+    private void loadTopicListForUser(HttpServletRequest req, User user) {
+        try {
+            List<Topic> topicList = TopicDao.fetchTopicsByUserId(user.getId());
+            req.setAttribute("topics", topicList);
+        } catch (SQLException e) {
+            req.setAttribute("error", "Unable to fetch topic list: " + e.getMessage());
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = req.getParameter("page");
@@ -31,15 +40,17 @@ public class TopicServlet extends HttpServlet {
             String idParam = req.getParameter("id");
             if (idParam == null || idParam.trim().isEmpty()) {
                 req.setAttribute("error", "Invalid topic id for editing.");
+                loadTopicListForUser(req, user);
                 req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
                 return;
             }
 
             try {
                 int id = Integer.parseInt(idParam);
-                Topic obj = TopicDao.fetchTopicById(id);
+                Topic obj = TopicDao.fetchTopicByIdAndUserId(id, user.getId());
                 if (obj == null) {
                     req.setAttribute("error", "Topic not found for editing.");
+                    loadTopicListForUser(req, user);
                     req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
                     return;
                 }
@@ -49,22 +60,52 @@ public class TopicServlet extends HttpServlet {
                 return;
             } catch (NumberFormatException e) {
                 req.setAttribute("error", "Topic id must be a number.");
+                loadTopicListForUser(req, user);
                 req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
                 return;
             } catch (SQLException e) {
                 req.setAttribute("error", "Unable to fetch topic for editing: " + e.getMessage());
+                loadTopicListForUser(req, user);
+                req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
+                return;
+            }
+        }
+
+        if ("delete".equals(page)) {
+            String idParam = req.getParameter("id");
+            if (idParam == null || idParam.trim().isEmpty()) {
+                req.setAttribute("error", "Invalid topic id for deleting.");
+                loadTopicListForUser(req, user);
+                req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
+                return;
+            }
+
+            try {
+                int id = Integer.parseInt(idParam);
+                boolean deleted = TopicDao.deleteTopic(id, user.getId());
+                if (!deleted) {
+                    req.setAttribute("error", "Topic not found or you do not have permission to delete it.");
+                    loadTopicListForUser(req, user);
+                    req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
+                    return;
+                }
+                resp.sendRedirect("topic?page=list");
+                return;
+            } catch (NumberFormatException e) {
+                req.setAttribute("error", "Topic id must be a number.");
+                loadTopicListForUser(req, user);
+                req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
+                return;
+            } catch (SQLException e) {
+                req.setAttribute("error", "Database error while deleting topic: " + e.getMessage());
+                loadTopicListForUser(req, user);
                 req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
                 return;
             }
         }
 
         if ("list".equals(page)) {
-            try {
-                List<Topic> topicList = TopicDao.fetchTopic();
-                req.setAttribute("topics", topicList);
-            } catch (SQLException e) {
-                req.setAttribute("error", "Unable to fetch topic list: " + e.getMessage());
-            }
+            loadTopicListForUser(req, user);
             req.getRequestDispatcher("/pages/topicList.jsp").forward(req, resp);
             return;
         }
@@ -113,7 +154,7 @@ public class TopicServlet extends HttpServlet {
                     resp.sendRedirect("topic?page=list");
                 } else {
                     req.setAttribute("error", "Unable to update topic.");
-                    Topic existingTopic = TopicDao.fetchTopicById(id);
+                    Topic existingTopic = TopicDao.fetchTopicByIdAndUserId(id, user.getId());
                     if (existingTopic != null) {
                         req.setAttribute("topic", existingTopic);
                     }

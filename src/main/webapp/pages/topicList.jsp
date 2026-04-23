@@ -15,8 +15,8 @@
         <header class="topbar">
             <h2 class="brand">Learning Log</h2>
             <nav class="nav-links" aria-label="Topic list navigation">
-                <a href="dashboard">Dashboard</a>
-                <a href="topic">Add Topic</a>
+                <a href="${pageContext.request.contextPath}/dashboard">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/topic">Add Topic</a>
             </nav>
         </header>
 
@@ -26,8 +26,8 @@
             <p class="subtitle">Review your recorded topics and quickly jump into edits when needed.</p>
 
             <div class="actions">
-                <a class="btn btn-primary" href="topic">Add New Topic</a>
-                <a class="btn btn-secondary" href="dashboard">Back to Dashboard</a>
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/topic">Add New Topic</a>
+                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/dashboard">Back to Dashboard</a>
             </div>
 
             <div class="stack">
@@ -49,7 +49,7 @@
                         <tbody>
                         <c:if test="${empty topics}">
                             <tr>
-                                <td colspan="5" class="empty">No topics added yet.</td>
+                                <td colspan="5" class="empty">No topics added yet please add a topic.</td>
                             </tr>
                         </c:if>
                         <c:forEach var="t" items="${topics}">
@@ -60,8 +60,8 @@
                                 <td>${t.created_at}</td>
                                 <td>
                                     <div class="actions">
-                                        <a class="btn btn-secondary" href="topic?page=edit&id=${t.id}">Edit</a>
-                                        <a class="btn btn-danger" href="topic?page=delete&id=${t.id}">Delete</a>
+                                        <a class="btn btn-secondary" href="${pageContext.request.contextPath}/topic?page=edit&id=${t.id}">Edit</a>
+                                        <a class="btn btn-danger" href="${pageContext.request.contextPath}/topic?page=delete&id=${t.id}" onclick="return confirm('Delete this topic?');">Delete</a>
                                     </div>
                                 </td>
                             </tr>

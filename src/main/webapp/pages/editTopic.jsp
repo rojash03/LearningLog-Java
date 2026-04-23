@@ -13,8 +13,8 @@
         <header class="topbar">
             <h2 class="brand">Learning Log</h2>
             <nav class="nav-links" aria-label="Edit navigation">
-                <a href="topic?page=list">Topic List</a>
-                <a href="dashboard">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/topic?page=list">Topic List</a>
+                <a href="${pageContext.request.contextPath}/dashboard">Dashboard</a>
             </nav>
         </header>
 
@@ -28,7 +28,7 @@
                     <div class="alert" role="alert"><%= request.getAttribute("error") %></div>
                 <% } %>
 
-                <form method="post" action="edit-topic">
+                <form method="post" action="${pageContext.request.contextPath}/topic">
                     <input type="hidden" name="action" value="edit" />
                     <input type="hidden" name="id" value="${topic.id}" />
 
@@ -37,7 +37,7 @@
 
                     <div class="actions">
                         <button type="submit">Update Topic</button>
-                        <a class="btn btn-secondary" href="topic?page=list">Cancel</a>
+                        <a class="btn btn-secondary" href="${pageContext.request.contextPath}/topic?page=list">Cancel</a>
                     </div>
                 </form>
             </div>
