@@ -22,17 +22,18 @@ public class AuthFilter implements Filter {
 
         String URI = httpRequest.getRequestURI();
 
-        boolean isLoginPageOrRegisterPage = URI.endsWith("login") || URI.endsWith("register");
+        boolean isLoginPageORRegisterPage = URI.endsWith("login") || URI.endsWith("register");
 
-        if (isLoggedIn && isLoginPageOrRegisterPage) {
+        boolean isStaticFile = URI.contains("images") || URI.contains("css") || URI.contains("js");
+
+        if (isLoggedIn && isLoginPageORRegisterPage) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
             return;
         }
-        if (!isLoggedIn || !isLoginPageOrRegisterPage) {
+        if(isLoggedIn || isLoginPageORRegisterPage || isStaticFile) {
             chain.doFilter(request, response);
-            else{
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
-            }
+        } else {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
         }
     }
 }
