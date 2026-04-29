@@ -32,7 +32,7 @@
 
             <div class="stack">
                 <c:if test="${not empty error}">
-                    <div class="alert" role="alert">${error}</div>
+                    <div class="alert" role="alert"><c:out value="${error}" /></div>
                 </c:if>
 
                 <div class="table-wrap">
@@ -46,7 +46,7 @@
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>.
+                        <tbody>
                         <c:if test="${empty topics}">
                             <tr>
                                 <td colspan="5" class="empty">No topics added yet please add a topic.</td>
@@ -54,10 +54,10 @@
                         </c:if>
                         <c:forEach var="t" items="${topics}">
                             <tr>
-                                <td>${t.id}</td>
-                                <td>${t.topic}</td>
-                                <td>${t.userid}</td>
-                                <td>${t.created_at}</td>
+                                <td><c:out value="${t.id}" /></td>
+                                <td><c:out value="${t.topic}" /></td>
+                                <td><c:out value="${t.userid}" /></td>
+                                <td><c:out value="${t.created_at}" /></td>
                                 <td>
                                     <div class="actions">
                                         <a class="btn btn-secondary" href="${pageContext.request.contextPath}/topic?page=edit&id=${t.id}">Edit</a>
