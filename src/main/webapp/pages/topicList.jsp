@@ -46,7 +46,7 @@
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody>.
                         <c:if test="${empty topics}">
                             <tr>
                                 <td colspan="5" class="empty">No topics added yet please add a topic.</td>
