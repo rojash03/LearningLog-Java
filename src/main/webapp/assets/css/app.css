@@ -126,6 +126,91 @@ h1 {
     gap: 14px;
 }
 
+.topic-hero {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.topic-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    padding: 18px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+}
+
+.topic-card::after {
+    content: "";
+    position: absolute;
+    inset: auto -24px -34px auto;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.18), transparent 70%);
+}
+
+.topic-card-highlight {
+    background: linear-gradient(135deg, #ecfeff 0%, #fff7ed 100%);
+}
+
+.topic-card-note {
+    margin: 10px 0 0 0;
+    color: var(--ink-500);
+    line-height: 1.5;
+}
+
+.topic-empty {
+    text-align: center;
+    padding: 28px 20px;
+}
+
+.topic-empty h2 {
+    margin: 10px 0 0 0;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.4rem;
+}
+
+.topic-table-wrap {
+    border-radius: 18px;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+}
+
+.topic-table {
+    min-width: 720px;
+}
+
+.topic-table th:first-child,
+.topic-table td:first-child {
+    width: 84px;
+}
+
+.topic-table th:last-child,
+.topic-table td:last-child {
+    width: 220px;
+}
+
+.row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -325,5 +410,9 @@ tbody tr:hover {
     .actions button {
         width: 100%;
         text-align: center;
+    }
+
+    .topic-table {
+        min-width: 640px;
     }
 }
