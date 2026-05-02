@@ -30,10 +30,10 @@ body {
     font-family: "Space Grotesk", "Trebuchet MS", "Segoe UI", sans-serif;
     color: var(--ink-900);
     background:
-        radial-gradient(circle at 10% 18%, #e0f2fe 0, transparent 34%),
-        radial-gradient(circle at 85% 10%, #ffedd5 0, transparent 38%),
-        radial-gradient(circle at 55% 80%, #dcfce7 0, transparent 36%),
-        linear-gradient(170deg, #f8fafc 0%, #f1f5f9 100%);
+    radial-gradient(circle at 12% 18%, #fde2e4 0, transparent 34%),
+    radial-gradient(circle at 85% 12%, #fff7ed 0, transparent 40%),
+    radial-gradient(circle at 50% 85%, #fef3c7 0, transparent 36%),
+    linear-gradient(170deg, #faf7f2 0%, #f3efe8 100%);
 }
 
 .page-wrap {
@@ -370,11 +370,75 @@ tbody tr:hover {
 }
 
 .auth-shell {
-    width: min(470px, 100%);
+    width: min(980px, 100%);
 }
 
-.auth-shell .content {
-    padding-top: 24px;
+.auth-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+.auth-hero {
+    background:
+        linear-gradient(140deg, rgba(255, 255, 255, 0.92), rgba(255, 237, 213, 0.6)),
+        radial-gradient(circle at 20% 20%, rgba(15, 118, 110, 0.08), transparent 55%);
+    border-right: 1px solid var(--line);
+    padding: 36px 32px;
+    display: flex;
+    align-items: center;
+}
+
+.auth-hero-inner {
+    display: grid;
+    gap: 14px;
+}
+
+.auth-hero h1 {
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+}
+
+.auth-meta {
+    display: grid;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.auth-meta-item {
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+    color: var(--ink-700);
+    line-height: 1.5;
+}
+
+.auth-content {
+    padding: 32px 28px;
+}
+
+.form-card {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #ffffff;
+    padding: 18px;
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+}
+
+.form-card .stack {
+    margin-top: 0;
+}
+
+.auth-footer {
+    margin-top: 14px;
+}
+
+.auth-links a {
+    color: var(--brand-strong);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(15, 118, 110, 0.25);
+}
+
+.auth-links a:hover {
+    border-bottom-color: var(--brand);
 }
 
 @keyframes rise-in {
@@ -396,6 +460,20 @@ tbody tr:hover {
     .topbar {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .auth-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-hero {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 24px 22px;
+    }
+
+    .auth-content {
+        padding: 24px 22px;
     }
 
     .content {
