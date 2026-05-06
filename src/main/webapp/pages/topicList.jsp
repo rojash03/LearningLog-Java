@@ -82,8 +82,10 @@
                                         <td><fmt:formatDate value="${t.created_at}" pattern="yyyy-MM-dd HH:mm" /></td>
                                         <td>
                                             <div class="row-actions">
-                                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/topic?page=edit&id=${t.id}">Edit</a>
-                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/topic?page=delete&id=${t.id}" onclick="return confirm('Delete this topic?');">Delete</a>
+                                                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/topic?page=edit&id=${t.id}">Edit</a>
+                                                                <a class="btn btn-danger js-confirm-delete"
+                                                                    href="${pageContext.request.contextPath}/topic?page=delete&id=${t.id}"
+                                                                    data-topic="${t.topic}">Delete</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -97,5 +99,17 @@
         </div>
     </section>
 </main>
+<script>
+    const deleteLinks = document.querySelectorAll(".js-confirm-delete");
+    deleteLinks.forEach((link) => {
+        link.addEventListener("click", (event) => {
+            const topicName = link.getAttribute("data-topic") || "this topic";
+            const message = `Delete "${topicName}"? This action cannot be undone.`;
+            if (!window.confirm(message)) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>
